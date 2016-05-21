@@ -193,12 +193,7 @@ public class MPMain extends Activity implements OnTouchListener {
     }
 
     private boolean gano() {
-        int cant = 0;
-        for (int f = 0; f < 8; f++)
-            for (int c = 0; c < 8; c++)
-                if (casillas[f][c].destapado)
-                    cant++;
-        if (cant == 64)
+        if (puntuacion1==5 || puntuacion2 ==5)
             return true;
         else
             return false;
