@@ -49,9 +49,6 @@ public class MPMain extends Activity implements OnTouchListener {
         this.contarBombasPerimetro(); //Llama al método para contar las bombas circundantes
     }
 
-
-
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         TextView puntuacion = (TextView) findViewById(R.id.puntuacion);
