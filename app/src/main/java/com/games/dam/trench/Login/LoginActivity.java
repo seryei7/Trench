@@ -36,7 +36,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         .show();
                 break;
             case R.id.signinFacebook:
-                Toast.makeText(this, "En pruebas", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "En pruebassss", Toast.LENGTH_SHORT)
                         .show();
                 break;
         }
