@@ -14,7 +14,19 @@
         android:text="jugador 1"
         android:textColor="#c60309"
         android:textStyle="bold"
-        android:gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:textSize="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/puntuacion"
+        android:text="0"
+        android:textColor="#c60309"
+        android:textStyle="bold"
+        android:layout_alignParentRight="true"
         android:textSize="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

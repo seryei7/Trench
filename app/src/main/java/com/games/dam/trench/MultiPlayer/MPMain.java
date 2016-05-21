@@ -54,23 +54,31 @@ public class MPMain extends Activity implements OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        TextView puntuacion = (TextView) findViewById(R.id.puntuacion);
         if (activo)
             for (int f = 0; f < 8; f++) {
                 for (int c = 0; c < 8; c++) {
-                    if (casillas[f][c].dentro((int) event.getX(),
-                            (int) event.getY())) {
-                        casillas[f][c].destapado = true;
-                        if (casillas[f][c].contenido == 80) {
-                            puntuacion(jugador);
-                            Toast.makeText(this, "+1",
-                                    Toast.LENGTH_LONG).show();
-
-                        } else if (casillas[f][c].contenido == 0)
-                            recorrer(f, c);
-                        Toast.makeText(this, "Has fallado",
-                                Toast.LENGTH_SHORT).show();
-                        turno();
-                        fondo.invalidate();
+                    if (!casillas[f][c].destapado) {
+                        if (casillas[f][c].dentro((int) event.getX(),
+                                (int) event.getY())) {
+                            casillas[f][c].destapado = true;
+                            if (casillas[f][c].contenido == 80) {
+                                puntuacion(jugador);
+                                Toast.makeText(this, "+1",
+                                        Toast.LENGTH_SHORT).show();
+                            } else if (casillas[f][c].contenido >= 0 && casillas[f][c].contenido <= 8) {
+                                recorrer(f, c);
+                                Toast.makeText(this, "Has fallado",
+                                        Toast.LENGTH_SHORT).show();
+                                turno();
+                            }
+                            fondo.invalidate();
+                            if (jugador) {
+                                puntuacion.setText(String.valueOf(puntuacion1));
+                            } else {
+                                puntuacion.setText(String.valueOf(puntuacion2));
+                            }
+                        }
                     }
                 }
             }
@@ -166,7 +174,7 @@ public class MPMain extends Activity implements OnTouchListener {
                         Paint bomba = new Paint();
                         bomba.setARGB(255, 0, 0, 0);
                         canvas.drawCircle(c * anchocua + (anchocua / 2),
-                                filaact + (anchocua / 2), 80, bomba);
+                                filaact + (anchocua / 2), 20, bomba);
                     }
 
                 }
@@ -193,7 +201,7 @@ public class MPMain extends Activity implements OnTouchListener {
             for (int c = 0; c < 8; c++)
                 if (casillas[f][c].destapado)
                     cant++;
-        if (cant == 56)
+        if (cant == 64)
             return true;
         else
             return false;
@@ -282,12 +290,11 @@ public class MPMain extends Activity implements OnTouchListener {
         if (jugador){
             jugador = false;
             jugadores.setText("jugador 2");
-            return jugador;
         } else {
             jugador = true;
             jugadores.setText("jugador 1");
-            return jugador;
         }
+        return jugador;
     }
 
 }
