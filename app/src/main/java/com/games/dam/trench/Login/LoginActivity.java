@@ -32,7 +32,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.signinGoogle:
-                Toast.makeText(this, "En pruebas", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "En pruebasssss", Toast.LENGTH_SHORT)
                         .show();
                 break;
             case R.id.signinFacebook:
