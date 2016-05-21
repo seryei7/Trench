@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/fondo_splash">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="80dp">
+
+        <Button
+            android:layout_width="700px"
+            android:layout_height="wrap_content"
+            android:text="Un jugador"
+            android:id="@+id/un_jugador"
+            android:textColor="@android:color/white"
+            android:drawablePadding="8dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:drawableLeft="@drawable/flag_menu"
+            android:onClick="iniciarUnJugador"/>
+
+        <Button
+            android:layout_width="700px"
+            android:layout_height="wrap_content"
+            android:text="Dos jugadores"
+            android:id="@+id/dos_jugadores"
+            android:textColor="@android:color/white"
+            android:drawablePadding="8dp"
+            android:layout_below="@+id/un_jugador"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:drawableLeft="@drawable/multiplayer"
+            android:onClick="iniciarDosJugadores"/>
+
+        <Button
+            android:layout_width="700px"
+            android:layout_height="wrap_content"
+            android:text="Ajustes"
+            android:id="@+id/ajustes"
+            android:textColor="@android:color/white"
+            android:drawablePadding="8dp"
+            android:layout_below="@id/dos_jugadores"
+            android:layout_marginTop="30dp"
+            android:drawableLeft="@drawable/settings"
+            android:layout_centerHorizontal="true"
+            android:onClick="iniciarAjustes"/>
+
+        <Button
+            android:layout_width="700px"
+            android:layout_height="wrap_content"
+            android:text="Salir"
+            android:id="@+id/salir_app"
+            android:layout_below="@+id/ajustes"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:onClick="salirApp"/>
+    </LinearLayout>
+</RelativeLayout>
