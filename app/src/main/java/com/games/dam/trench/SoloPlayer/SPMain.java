@@ -83,12 +83,12 @@ public class SPMain extends Activity implements OnTouchListener {
 
         fondo.invalidate();
     }
-    /*public void reiniciar(View v){
+    public void reiniciar(View v){
         Intent i = getApplicationContext().getPackageManager()
                 .getLaunchIntentForPackage( getBaseContext().getPackageName() );
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
-    }*/
+    }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -102,7 +102,7 @@ public class SPMain extends Activity implements OnTouchListener {
                             crono.stop();
                             Toast.makeText(this, "Booooooooommmmmmmmmmmm",
                                     Toast.LENGTH_LONG).show();
-                            activo = false;
+                            activo=false;
                         } else if (casillas[f][c].contenido == 0)
                             recorrer(f, c);
                         fondo.invalidate();
@@ -135,7 +135,7 @@ public class SPMain extends Activity implements OnTouchListener {
             Paint paint = new Paint();
             paint.setTextSize(20);
             Paint paint2 = new Paint(); //Numeros
-            paint2.setTextSize(60);
+            paint2.setTextSize(20);
             paint2.setTypeface(Typeface.DEFAULT_BOLD);
             Paint paintlinea1 = new Paint();
             paintlinea1.setARGB(255, 0, 0, 0);
