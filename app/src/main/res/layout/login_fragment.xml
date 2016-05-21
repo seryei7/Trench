@@ -1,0 +1,46 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_splash"
+    android:orientation="vertical">
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="Iniciar sesion con Email"
+        android:id="@+id/signinEmail"
+        android:background="@color/grey_300"
+        android:textColor="@android:color/white"
+        android:drawablePadding="8dp"
+        android:paddingLeft="5dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="300dp"
+        android:drawableLeft="@drawable/email"/>
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="Iniciar sesion con Google"
+        android:id="@+id/signinGoogle"
+        android:background="@color/goole"
+        android:textColor="@android:color/white"
+        android:drawablePadding="8dp"
+        android:paddingLeft="5dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/google"/>
+    <Button
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:text="Iniciar sesion con Facebook"
+        android:id="@+id/signinFacebook"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@android:color/white"
+        android:drawablePadding="8dp"
+        android:paddingLeft="5dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/facebook"/>
+</LinearLayout>
+
+

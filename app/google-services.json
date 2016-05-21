@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "2195338939",
+    "firebase_url": "https://project-1286906161875869031.firebaseio.com",
+    "project_id": "project-1286906161875869031",
+    "storage_bucket": "project-1286906161875869031.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2195338939:android:7d8f29223f8c8688",
+        "android_client_info": {
+          "package_name": "com.games.dam.trench"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2195338939-tf2tfalgll0qcmebe4sqm6o3bd3dmfhk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKkvf5y9CE-KHDcVXR8mzWEdVVq9G_Nw4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

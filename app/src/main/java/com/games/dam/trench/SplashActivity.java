@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.games.dam.trench.Login.LoginActivity;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -26,7 +28,7 @@ public class SplashActivity extends Activity {
         TimerTask task = new TimerTask(){
             public void run(){
                 Intent mainIntent = new Intent().setClass(
-                        SplashActivity.this, HomeActivity.class);
+                        SplashActivity.this, LoginActivity.class);
                 startActivity(mainIntent);
 
                 finish();

@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.games.dam.trench.Login.LoginWithEmail;
 import com.games.dam.trench.MultiPlayer.MPMain;
 import com.games.dam.trench.SoloPlayer.SPMain;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends Activity {
-
+    private FirebaseAuth user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +25,8 @@ public class HomeActivity extends Activity {
     }
 
     public void salirApp(View view) {
+        user.getCurrentUser();
+        user.signOut();
         finish();
     }
 
