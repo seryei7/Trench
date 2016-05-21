@@ -83,12 +83,12 @@ public class SPMain extends Activity implements OnTouchListener {
 
         fondo.invalidate();
     }
-    public void reiniciar(View v){
+    /*public void reiniciar(View v){
         Intent i = getApplicationContext().getPackageManager()
                 .getLaunchIntentForPackage( getBaseContext().getPackageName() );
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
-    }
+    }*/
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
