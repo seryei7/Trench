@@ -29,18 +29,6 @@
         android:layout_marginLeft="60dp"
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/google"/>
-    <Button
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:text="Iniciar sesion con Facebook"
-        android:id="@+id/signinFacebook"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@android:color/white"
-        android:drawablePadding="8dp"
-        android:paddingLeft="5dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/facebook"/>
 </LinearLayout>
 
 

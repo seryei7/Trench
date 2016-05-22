@@ -24,8 +24,6 @@ import android.widget.Toast;
 public class LoginWithEmail extends BaseActivity implements View.OnClickListener{
     private static final String TAG = "EmailPassword";
     private FirebaseAuth fba;
-    FirebaseUser user;
-    //private FirebaseAuth.AuthStateListener fbalistener;
     private EditText mEmailField, mPasswordField;
     private Button signup, signin;
 
@@ -48,34 +46,6 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
         signup.setOnClickListener(this);
 
         fba = FirebaseAuth.getInstance();
-        user = fba.getCurrentUser();
-
-        if(user == null){
-            Toast.makeText(getApplicationContext(),"Registrate", Toast.LENGTH_SHORT).show();
-
-        }else{
-            /*fbalistener = new FirebaseAuth.AuthStateListener() {
-                @Override
-                public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
-                    Intent intent = new Intent(LoginWithEmail.this, HomeActivity.class);
-                    startActivity(intent);
-                }
-            };*/
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        //fba.addAuthStateListener(fbalistener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        /*if (fbalistener != null) {
-            fba.removeAuthStateListener(fbalistener);
-        }*/
     }
 
     private void createAccount(String email, String password) {
@@ -85,7 +55,6 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
 
         showProgressDialog();
 
-        // [START create_user_with_email]
         fba.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -97,15 +66,12 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
                         } else {
                             Intent intent = new Intent(LoginWithEmail.this, HomeActivity.class);
                             startActivity(intent);
+                            finish();
                         }
                         hideProgressDialog();
                     }
                 });
     }
-
-    /*public void signOut() {
-        fba.signOut();
-    }*/
 
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
@@ -115,7 +81,6 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
 
         showProgressDialog();
 
-        // [START sign_in_with_email]
         fba.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -123,7 +88,7 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail", task.getException());
-                            Toast.makeText(LoginWithEmail.this, "Fallo en la autentificación",
+                            Toast.makeText(LoginWithEmail.this, "Email o contraseña incorrectos",
                                     Toast.LENGTH_SHORT).show();
                         }else {
                             Intent intent = new Intent(LoginWithEmail.this, HomeActivity.class);
@@ -140,7 +105,7 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
 
         String email = mEmailField.getText().toString();
         if (TextUtils.isEmpty(email)) {
-            mEmailField.setError("Required.");
+            mEmailField.setError("Requerido");
             valid = false;
         } else {
             mEmailField.setError(null);
@@ -148,7 +113,7 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
 
         String password = mPasswordField.getText().toString();
         if (TextUtils.isEmpty(password)) {
-            mPasswordField.setError("Required.");
+            mPasswordField.setError("Requerido");
             valid = false;
         } else {
             mPasswordField.setError(null);

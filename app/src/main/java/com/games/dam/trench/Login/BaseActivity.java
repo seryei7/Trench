@@ -1,10 +1,11 @@
 package com.games.dam.trench.Login;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import com.games.dam.trench.R;
 
-public class BaseActivity extends Activity {
+import android.app.ProgressDialog;
+import android.support.v4.app.FragmentActivity;
+
+
+public class BaseActivity extends FragmentActivity {
 
     private ProgressDialog mProgressDialog;
 

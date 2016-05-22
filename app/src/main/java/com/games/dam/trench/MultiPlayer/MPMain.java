@@ -109,7 +109,7 @@ public class MPMain extends Activity implements OnTouchListener {
             Paint paint = new Paint();
             paint.setTextSize(20);
             Paint paint2 = new Paint(); //Numeros
-            paint2.setTextSize(60);
+            paint2.setTextSize(50);
             paint2.setTypeface(Typeface.DEFAULT_BOLD);
             Paint paintlinea1 = new Paint();
             paintlinea1.setARGB(255, 0, 0, 0);
