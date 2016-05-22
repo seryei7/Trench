@@ -6,15 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
-import com.games.dam.trench.Login.LoginWithEmail;
 import com.games.dam.trench.MultiPlayer.MPMain;
 import com.games.dam.trench.SoloPlayer.SPMain;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends Activity {
-    private FirebaseAuth user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,22 +20,23 @@ public class HomeActivity extends Activity {
     }
 
     public void salirApp(View view) {
-        user.getCurrentUser();
-        user.signOut();
-        finish();
+        finishAffinity();
     }
 
     public void iniciarAjustes(View view) {
         //Intent intentAjustes = new Intent(this, );
+        //finish();
     }
 
     public void iniciarDosJugadores(View view) {
         Intent intentDosJugadores = new Intent(this, MPMain.class);
         startActivity(intentDosJugadores);
+        finish();
     }
 
     public void iniciarUnJugador(View view) {
         Intent intentUnJugador = new Intent(this, SPMain.class);
         startActivity(intentUnJugador);
+        finish();
     }
 }

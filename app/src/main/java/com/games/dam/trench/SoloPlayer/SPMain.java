@@ -84,10 +84,9 @@ public class SPMain extends Activity implements OnTouchListener {
         fondo.invalidate();
     }
     public void reiniciar(View v){
-        Intent i = getApplicationContext().getPackageManager()
-                .getLaunchIntentForPackage( getBaseContext().getPackageName() );
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
+        Intent i = new Intent().setClass(this, this.getClass());
+        this.startActivity(i);
+        this.finish();
     }
 
     @Override
@@ -135,7 +134,7 @@ public class SPMain extends Activity implements OnTouchListener {
             Paint paint = new Paint();
             paint.setTextSize(20);
             Paint paint2 = new Paint(); //Numeros
-            paint2.setTextSize(20);
+            paint2.setTextSize(50);
             paint2.setTypeface(Typeface.DEFAULT_BOLD);
             Paint paintlinea1 = new Paint();
             paintlinea1.setARGB(255, 0, 0, 0);

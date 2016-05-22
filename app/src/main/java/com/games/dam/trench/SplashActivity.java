@@ -30,7 +30,6 @@ public class SplashActivity extends Activity {
                 Intent mainIntent = new Intent().setClass(
                         SplashActivity.this, LoginActivity.class);
                 startActivity(mainIntent);
-
                 finish();
             }
         };

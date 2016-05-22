@@ -11,7 +11,8 @@ public class BaseActivity extends Activity {
     public void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage("Cargando");
+            mProgressDialog.setTitle("Comprobando datos");
+            mProgressDialog.setMessage("Espere unos segundos...");
             mProgressDialog.setIndeterminate(true);
         }
 

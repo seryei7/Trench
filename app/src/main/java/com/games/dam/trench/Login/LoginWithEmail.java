@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import android.support.annotation.NonNull;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,9 +24,11 @@ import android.widget.Toast;
 public class LoginWithEmail extends BaseActivity implements View.OnClickListener{
     private static final String TAG = "EmailPassword";
     private FirebaseAuth fba;
-    private FirebaseAuth.AuthStateListener fbalistener;
-    private EditText mEmailField;
-    private EditText mPasswordField;
+    FirebaseUser user;
+    //private FirebaseAuth.AuthStateListener fbalistener;
+    private EditText mEmailField, mPasswordField;
+    private Button signup, signin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Quitar toolbar
@@ -38,30 +41,41 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
         mEmailField = (EditText) findViewById(R.id.email);
         mPasswordField = (EditText) findViewById(R.id.password);
 
+        signin = (Button) findViewById(R.id.login);
+        signup = (Button) findViewById(R.id.singup);
+
+        signin.setOnClickListener(this);
+        signup.setOnClickListener(this);
+
         fba = FirebaseAuth.getInstance();
-        fbalistener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
-                Intent intent = new Intent(LoginWithEmail.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        };
+        user = fba.getCurrentUser();
+
+        if(user == null){
+            Toast.makeText(getApplicationContext(),"Registrate", Toast.LENGTH_SHORT).show();
+
+        }else{
+            /*fbalistener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
+                    Intent intent = new Intent(LoginWithEmail.this, HomeActivity.class);
+                    startActivity(intent);
+                }
+            };*/
+        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        fba.addAuthStateListener(fbalistener);
+        //fba.addAuthStateListener(fbalistener);
     }
-    // [END on_start_add_listener]
 
-    // [START on_stop_remove_listener]
     @Override
     public void onStop() {
         super.onStop();
-        if (fbalistener != null) {
+        /*if (fbalistener != null) {
             fba.removeAuthStateListener(fbalistener);
-        }
+        }*/
     }
 
     private void createAccount(String email, String password) {
@@ -89,9 +103,9 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
                 });
     }
 
-    public void signOut() {
+    /*public void signOut() {
         fba.signOut();
-    }
+    }*/
 
     private void signIn(String email, String password) {
         Log.d(TAG, "signIn:" + email);
@@ -111,6 +125,9 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
                             Log.w(TAG, "signInWithEmail", task.getException());
                             Toast.makeText(LoginWithEmail.this, "Fallo en la autentificación",
                                     Toast.LENGTH_SHORT).show();
+                        }else {
+                            Intent intent = new Intent(LoginWithEmail.this, HomeActivity.class);
+                            startActivity(intent);
                         }
                         hideProgressDialog();
                     }
@@ -143,9 +160,13 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.login:
-                createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
+            case R.id.singup:
+                createAccount(mEmailField.getText().toString().trim(),
+                        mPasswordField.getText().toString().trim());
                 break;
+            case R.id.login:
+                signIn(mEmailField.getText().toString().trim(),
+                        mPasswordField.getText().toString().trim());
         }
     }
 }
