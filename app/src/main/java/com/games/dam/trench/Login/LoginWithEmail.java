@@ -7,23 +7,27 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
-import com.games.dam.trench.HomeActivity;
-import com.games.dam.trench.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import android.support.annotation.NonNull;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.games.dam.trench.HomeActivity;
+import com.games.dam.trench.R;
+import com.games.dam.trench.models.User;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.AuthResult;
 
 public class LoginWithEmail extends BaseActivity implements View.OnClickListener{
     private static final String TAG = "EmailPassword";
     private FirebaseAuth fba;
+    private DatabaseReference mDatabase;
     private EditText mEmailField, mPasswordField;
     private Button signup, signin;
 
@@ -36,16 +40,22 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginwithemail_fragment);
 
+        String mode = getIntent().getExtras().getString("mode");
+        if(mode.equals("singin")){
+            signin = (Button) findViewById(R.id.login);
+            signin.setVisibility(View.VISIBLE);
+            signin.setOnClickListener(this);
+        }else{
+            signup = (Button) findViewById(R.id.singup);
+            signup.setVisibility(View.VISIBLE);
+            signup.setOnClickListener(this);
+        }
+
         mEmailField = (EditText) findViewById(R.id.email);
         mPasswordField = (EditText) findViewById(R.id.password);
 
-        signin = (Button) findViewById(R.id.login);
-        signup = (Button) findViewById(R.id.singup);
-
-        signin.setOnClickListener(this);
-        signup.setOnClickListener(this);
-
         fba = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     private void createAccount(String email, String password) {
@@ -64,9 +74,7 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
                             Toast.makeText(LoginWithEmail.this, "Fallo en la autentificación",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            Intent intent = new Intent(LoginWithEmail.this, HomeActivity.class);
-                            startActivity(intent);
-                            finish();
+                            onAuthSuccess(task.getResult().getUser());
                         }
                         hideProgressDialog();
                     }
@@ -91,8 +99,7 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
                             Toast.makeText(LoginWithEmail.this, "Email o contraseña incorrectos",
                                     Toast.LENGTH_SHORT).show();
                         }else {
-                            Intent intent = new Intent(LoginWithEmail.this, HomeActivity.class);
-                            startActivity(intent);
+                            onAuthSuccess(task.getResult().getUser());
                         }
                         hideProgressDialog();
                     }
@@ -120,6 +127,29 @@ public class LoginWithEmail extends BaseActivity implements View.OnClickListener
         }
 
         return valid;
+    }
+
+    private void writeNewUser(String userId, String name, String email) {
+        User user = new User(name, email);
+
+        mDatabase.child("users").child(userId).setValue(user);
+    }
+
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
+    }
+
+    private void onAuthSuccess(FirebaseUser user) {
+        String username = usernameFromEmail(user.getEmail());
+
+        writeNewUser(user.getUid(), username, user.getEmail());
+
+        startActivity(new Intent().setClass(LoginWithEmail.this, HomeActivity.class));
+        finish();
     }
 
     @Override

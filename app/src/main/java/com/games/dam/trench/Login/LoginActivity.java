@@ -1,6 +1,5 @@
 package com.games.dam.trench.Login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.games.dam.trench.HomeActivity;
@@ -32,6 +32,7 @@ public class LoginActivity extends BaseActivity implements
         View.OnClickListener {
 
     private Button email,google;
+    private TextView singup;
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
@@ -50,9 +51,11 @@ public class LoginActivity extends BaseActivity implements
 
         email = (Button)findViewById(R.id.signinEmail);
         google = (Button)findViewById(R.id.signinGoogle);
+        singup = (TextView)findViewById(R.id.tvsingup);
 
         email.setOnClickListener(this);
         google.setOnClickListener(this);
+        singup.setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -152,13 +155,18 @@ public class LoginActivity extends BaseActivity implements
     @Override
     public void onClick(View v) {
         int id = v.getId();
+        Intent intent = new Intent().setClass(LoginActivity.this, LoginWithEmail.class);
         switch (id){
             case R.id.signinEmail:
-                Intent intent = new Intent().setClass(LoginActivity.this, LoginWithEmail.class);
+                intent.putExtra("mode","singin");
                 startActivity(intent);
                 break;
             case R.id.signinGoogle:
                 signIn();
+                break;
+            case R.id.tvsingup:
+                intent.putExtra("mode","singup");
+                startActivity(intent);
                 break;
         }
     }

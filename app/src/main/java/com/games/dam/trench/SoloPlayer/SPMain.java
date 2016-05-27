@@ -1,7 +1,9 @@
 package com.games.dam.trench.SoloPlayer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -17,6 +19,7 @@ import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.games.dam.trench.HomeActivity;
 import com.games.dam.trench.R;
 import com.games.dam.trench.Casilla;
 
@@ -83,11 +86,6 @@ public class SPMain extends Activity implements OnTouchListener {
 
         fondo.invalidate();
     }
-    public void reiniciar(View v){
-        Intent i = new Intent().setClass(this, this.getClass());
-        this.startActivity(i);
-        this.finish();
-    }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -99,8 +97,8 @@ public class SPMain extends Activity implements OnTouchListener {
                         casillas[f][c].destapado = true;
                         if (casillas[f][c].contenido == 80) {
                             crono.stop();
-                            Toast.makeText(this, "Booooooooommmmmmmmmmmm",
-                                    Toast.LENGTH_LONG).show();
+                            //crono = null;
+                            //endGame(false).show();
                             activo=false;
                         } else if (casillas[f][c].contenido == 0)
                             recorrer(f, c);
@@ -110,7 +108,8 @@ public class SPMain extends Activity implements OnTouchListener {
             }
         if (gano() && activo) {
             crono.stop();
-            Toast.makeText(this, "Ganaste", Toast.LENGTH_LONG).show();
+            //endGame(true).show();
+            //crono = null;
             activo = false;
         }
 
@@ -299,4 +298,35 @@ public class SPMain extends Activity implements OnTouchListener {
         }
     }
 
+    public AlertDialog endGame(boolean win){
+        String title, message;
+        if(win){
+            title = "Enhorabuena";
+            message = "¿Quieres mejorar tu marca?";
+        }else{
+            title = "No pasa nada...";
+            message = "¿Quieres volver a intentarlo?";
+        }
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setTitle(title)
+                .setMessage(message)
+                .setNegativeButton("Volver al menú", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(SPMain.this, HomeActivity.class));
+                    }
+                })
+                .setPositiveButton("Reintentar", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+                        Intent i = new Intent().setClass(SPMain.this, this.getClass());
+                        startActivity(i);
+                        finish();
+                    }
+                })
+                .create();
+        return dialog;
+    }
 }

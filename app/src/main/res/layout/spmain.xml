@@ -7,65 +7,33 @@
     android:background="#000000"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="REINICIAR"
-            android:id="@+id/b_start"
+            android:layout_height="45dp"
+            android:text="Tiempo:"
+            android:id="@+id/textcrono"
             android:textColor="#c60309"
-            android:gravity="center"
-            android:textSize="23dp"
-            android:onClick="reiniciar"
             android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignBottom="@+id/lysegundo" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_toEndOf="@+id/b_start"
-            android:id="@+id/lysegundo"
-            android:layout_alignParentStart="true">
-
-            <!--ImageView
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:src="@drawable/flag"/-->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:text="10"
-                android:textColor="#c60309"
-                android:textStyle="bold"
-                android:gravity="center_vertical"
-                android:paddingRight="7dp"
-                android:paddingLeft="7dp"
-                android:textSize="23dp"/>
-
-        </LinearLayout>
+            android:gravity="center"
+            android:paddingRight="7dp"
+            android:paddingLeft="7dp"
+            android:textSize="25dp"/>
         <Chronometer
             android:id="@+id/crono"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:textColor="#c60309"
             android:textStyle="bold"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:paddingRight="7dp"
             android:paddingLeft="7dp"
-            android:textSize="23dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@+id/b_start"
-            android:layout_alignParentTop="true" />
-    </RelativeLayout>
+            android:textSize="25dp"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"

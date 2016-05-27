@@ -50,15 +50,5 @@
             android:drawableLeft="@drawable/settings"
             android:layout_centerHorizontal="true"
             android:onClick="iniciarAjustes"/>
-
-        <Button
-            android:layout_width="700px"
-            android:layout_height="wrap_content"
-            android:text="Salir"
-            android:id="@+id/salir_app"
-            android:layout_below="@+id/ajustes"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:onClick="salirApp"/>
     </LinearLayout>
 </RelativeLayout>

@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Trench</string>
-
+    <array name="settings">
+        <item>Cerrar sesión</item>
+        <item>Información</item>
+        <item>Salir</item>
+    </array>
+    <string name="singup"><u>Registrarse</u></string>
 </resources>
