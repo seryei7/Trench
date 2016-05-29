@@ -12,17 +12,13 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ImageView
             android:layout_height="45dp"
-            android:text="Tiempo:"
-            android:id="@+id/textcrono"
-            android:textColor="#c60309"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:paddingRight="7dp"
-            android:paddingLeft="7dp"
-            android:textSize="25dp"/>
+            android:layout_width="45dp"
+            android:id="@+id/button"
+            android:src="@drawable/emoji_start"
+            android:scaleType="fitCenter"
+            />
         <Chronometer
             android:id="@+id/crono"
             android:layout_width="wrap_content"
@@ -42,5 +38,4 @@
         android:orientation="vertical"
         android:layout_marginTop="50dp">
     </LinearLayout>
-
 </LinearLayout>

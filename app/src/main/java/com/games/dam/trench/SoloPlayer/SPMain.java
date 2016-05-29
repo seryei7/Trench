@@ -16,6 +16,7 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -27,6 +28,8 @@ public class SPMain extends Activity implements OnTouchListener {
     private Tablero fondo;
     private Chronometer crono;
     private long timestop = 0;
+    private ImageView emoji;
+    private String mark;
     private Casilla[][] casillas;
     private boolean activo = true;
 
@@ -39,6 +42,8 @@ public class SPMain extends Activity implements OnTouchListener {
         setContentView(R.layout.spmain);
 
         crono = (Chronometer)findViewById(R.id.crono);
+        emoji = (ImageView)findViewById(R.id.button);
+
         LinearLayout layout = (LinearLayout) findViewById(R.id.LLTabla);
         fondo = new Tablero(this);
         fondo.setOnTouchListener(this);
@@ -62,29 +67,12 @@ public class SPMain extends Activity implements OnTouchListener {
     @Override
     public void onResume(){
         super.onResume();
-        crono.setBase(SystemClock.elapsedRealtime() + timestop);
-        crono.start();
-    }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-        return true;
-    }*/
-
-    public void presionado(View v) {
-        casillas = new Casilla[8][8];
-        for (int f = 0; f < 8; f++) {
-            for (int c = 0; c < 8; c++) {
-                casillas[f][c] = new Casilla();
-            }
+        if(!activo){
+            crono.stop();
+        }else{
+            crono.setBase(SystemClock.elapsedRealtime() + timestop);
+            crono.start();
         }
-        this.disponerBombas();
-        this.contarBombasPerimetro();
-        activo = true;
-
-        fondo.invalidate();
     }
 
     @Override
@@ -97,8 +85,8 @@ public class SPMain extends Activity implements OnTouchListener {
                         casillas[f][c].destapado = true;
                         if (casillas[f][c].contenido == 80) {
                             crono.stop();
-                            //crono = null;
-                            //endGame(false).show();
+                            emoji.setImageResource(R.drawable.emoji_lost);
+                            endGame(false).show();
                             activo=false;
                         } else if (casillas[f][c].contenido == 0)
                             recorrer(f, c);
@@ -108,8 +96,9 @@ public class SPMain extends Activity implements OnTouchListener {
             }
         if (gano() && activo) {
             crono.stop();
-            //endGame(true).show();
-            //crono = null;
+            mark = crono.getText().toString();
+            endGame(true).show();
+            emoji.setImageResource(R.drawable.emoji_win);
             activo = false;
         }
 
@@ -300,16 +289,20 @@ public class SPMain extends Activity implements OnTouchListener {
 
     public AlertDialog endGame(boolean win){
         String title, message;
+        int emoji;
         if(win){
             title = "Enhorabuena";
-            message = "¿Quieres mejorar tu marca?";
+            message = "¿Quieres mejorar tu marca? La marca de ahora está en: "+mark;
+            emoji = R.drawable.emoji_win;
         }else{
             title = "No pasa nada...";
             message = "¿Quieres volver a intentarlo?";
+            emoji = R.drawable.emoji_lost;
         }
 
-        AlertDialog dialog = new AlertDialog.Builder(this)
+        return new AlertDialog.Builder(this)
                 .setCancelable(false)
+                .setIcon(emoji)
                 .setTitle(title)
                 .setMessage(message)
                 .setNegativeButton("Volver al menú", new DialogInterface.OnClickListener() {
@@ -321,12 +314,11 @@ public class SPMain extends Activity implements OnTouchListener {
                 .setPositiveButton("Reintentar", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which){
-                        Intent i = new Intent().setClass(SPMain.this, this.getClass());
+                        Intent i = new Intent().setClass(SPMain.this, SPMain.class);
                         startActivity(i);
                         finish();
                     }
                 })
                 .create();
-        return dialog;
     }
 }

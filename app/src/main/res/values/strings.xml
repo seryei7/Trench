@@ -6,4 +6,5 @@
         <item>Salir</item>
     </array>
     <string name="singup"><u>Registrarse</u></string>
+    <string name="derechos">© 2016 TreeSoft.\nTodos los derechos reservados</string>
 </resources>

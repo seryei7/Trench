@@ -45,13 +45,13 @@ public class HomeActivity extends Activity {
                                 Toast.makeText(HomeActivity.this, "Cerrando sesión...", Toast.LENGTH_SHORT)
                                     .show();
                                 startActivity(new Intent().setClass(HomeActivity.this, LoginActivity.class));
+                                finish();
                                 break;
                             case "Información":
-                                Toast.makeText(HomeActivity.this, "En Pruebas", Toast.LENGTH_SHORT)
-                                        .show();
+                                startActivity(new Intent().setClass(HomeActivity.this, InfoActivity.class));
                                 break;
                             case "Salir":
-                                dialogExit();
+                                finishAffinity();
                                 break;
                         }
                     }
