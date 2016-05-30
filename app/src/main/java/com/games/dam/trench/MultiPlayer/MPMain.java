@@ -181,7 +181,7 @@ public class MPMain extends Activity implements OnTouchListener {
     }
 
     private void disponerBombas() {
-        int cantidad = 8;
+        int cantidad = 9;
         do {
             int fila = (int) (Math.random() * 8);
             int columna = (int) (Math.random() * 8);
