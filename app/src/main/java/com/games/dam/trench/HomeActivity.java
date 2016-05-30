@@ -2,9 +2,12 @@ package com.games.dam.trench;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +17,12 @@ import android.widget.Toast;
 import com.games.dam.trench.Login.LoginActivity;
 import com.games.dam.trench.MultiPlayer.MPMain;
 import com.games.dam.trench.SoloPlayer.SPMain;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends Activity {
@@ -33,15 +42,16 @@ public class HomeActivity extends Activity {
 
     public void iniciarAjustes(View view) {
         final String[] choices = getResources().getStringArray(R.array.settings);
-        AlertDialog dialog = new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this)
                 .setCancelable(false)
-                .setTitle("Ajustes")
+                .setTitle("AJUSTES")
                 .setItems(choices, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         switch (choices[which]){
                             case "Cerrar sesión":
                                 mAuth.signOut();
+
                                 Toast.makeText(HomeActivity.this, "Cerrando sesión...", Toast.LENGTH_SHORT)
                                     .show();
                                 startActivity(new Intent().setClass(HomeActivity.this, LoginActivity.class));
@@ -50,14 +60,10 @@ public class HomeActivity extends Activity {
                             case "Información":
                                 startActivity(new Intent().setClass(HomeActivity.this, InfoActivity.class));
                                 break;
-                            case "Salir":
-                                finishAffinity();
-                                break;
                         }
                     }
                 })
-                .create();
-        dialog.show();
+                .show();
     }
 
     public void iniciarDosJugadores(View view) {

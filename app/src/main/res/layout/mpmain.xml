@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/jugador"
-        android:text="jugador 1"
+        android:text="Jugador 1"
         android:textColor="#c60309"
         android:textStyle="bold"
         android:layout_alignParentLeft="true"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/LLTabla"
         android:orientation="vertical"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="100dp">
     </LinearLayout>
 
 </RelativeLayout>

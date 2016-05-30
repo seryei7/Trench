@@ -2,14 +2,21 @@ package com.games.dam.trench.SoloPlayer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -85,6 +92,7 @@ public class SPMain extends Activity implements OnTouchListener {
                         casillas[f][c].destapado = true;
                         if (casillas[f][c].contenido == 80) {
                             crono.stop();
+                            destaparBombas(c,f);
                             emoji.setImageResource(R.drawable.emoji_lost);
                             endGame(false).show();
                             activo=false;
@@ -113,7 +121,7 @@ public class SPMain extends Activity implements OnTouchListener {
 
         protected void onDraw(Canvas canvas) {
 
-            int ancho = 0;
+            int ancho;
             if (canvas.getWidth() < canvas.getHeight())
                 ancho = fondo.getWidth();
             else
@@ -122,7 +130,7 @@ public class SPMain extends Activity implements OnTouchListener {
             Paint paint = new Paint();
             paint.setTextSize(20);
             Paint paint2 = new Paint(); //Numeros
-            paint2.setTextSize(50);
+            paint2.setTextSize((int)(anchocua/3.5));
             paint2.setTypeface(Typeface.DEFAULT_BOLD);
             Paint paintlinea1 = new Paint();
             paintlinea1.setARGB(255, 0, 0, 0);
@@ -181,10 +189,10 @@ public class SPMain extends Activity implements OnTouchListener {
 
                     if (casillas[f][c].contenido == 80
                             && casillas[f][c].destapado) {
-                        Paint bomba = new Paint();
-                        bomba.setARGB(255, 0, 0, 0);
-                        canvas.drawCircle(c * anchocua + (anchocua / 2),
-                                filaact + (anchocua / 2), 80, bomba);
+                        Drawable d = ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_clear_black_24dp);
+                        d.setBounds(c * anchocua, filaact, c * anchocua
+                                + anchocua - 2, filaact + anchocua - 2);
+                        d.draw(canvas);
                     }
 
                 }
@@ -300,7 +308,7 @@ public class SPMain extends Activity implements OnTouchListener {
             emoji = R.drawable.emoji_lost;
         }
 
-        return new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setCancelable(false)
                 .setIcon(emoji)
                 .setTitle(title)
@@ -320,5 +328,17 @@ public class SPMain extends Activity implements OnTouchListener {
                     }
                 })
                 .create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(180,255,255,255)));
+        return dialog;
+    }
+
+    public void destaparBombas(int c, int f){
+        for (f = 0; f < 8; f++) {
+            for (c = 0; c < 8; c++) {
+                if (casillas[f][c].contenido == 80) {
+                    casillas[f][c].destapado = true;
+                }
+            }
+        }
     }
 }

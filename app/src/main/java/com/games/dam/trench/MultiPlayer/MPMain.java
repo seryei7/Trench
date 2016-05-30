@@ -1,6 +1,12 @@
 package com.games.dam.trench.MultiPlayer;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.app.Activity;
 import android.content.Context;
@@ -15,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.games.dam.trench.Casilla;
+import com.games.dam.trench.HomeActivity;
 import com.games.dam.trench.R;
 
 public class MPMain extends Activity implements OnTouchListener {
@@ -81,10 +88,10 @@ public class MPMain extends Activity implements OnTouchListener {
             }
         if (gano() && activo) {
             if (puntuacion1 > puntuacion2){
-                Toast.makeText(this, "Ha ganado el jugador 1", Toast.LENGTH_LONG).show();
+                endGame(true).show();
                 activo = false;
             } else {
-                Toast.makeText(this, "Ha ganado el jugador 2", Toast.LENGTH_LONG).show();
+                endGame(false).show();
                 activo = false;
             }
         }
@@ -100,7 +107,7 @@ public class MPMain extends Activity implements OnTouchListener {
 
         protected void onDraw(Canvas canvas) {
 
-            int ancho = 0;
+            int ancho;
             if (canvas.getWidth() < canvas.getHeight())
                 ancho = fondo.getWidth();
             else
@@ -109,7 +116,7 @@ public class MPMain extends Activity implements OnTouchListener {
             Paint paint = new Paint();
             paint.setTextSize(20);
             Paint paint2 = new Paint(); //Numeros
-            paint2.setTextSize(50);
+            paint2.setTextSize((int)(anchocua/3.5));
             paint2.setTypeface(Typeface.DEFAULT_BOLD);
             Paint paintlinea1 = new Paint();
             paintlinea1.setARGB(255, 0, 0, 0);
@@ -168,10 +175,10 @@ public class MPMain extends Activity implements OnTouchListener {
 
                     if (casillas[f][c].contenido == 80
                             && casillas[f][c].destapado) {
-                        Paint bomba = new Paint();
-                        bomba.setARGB(255, 0, 0, 0);
-                        canvas.drawCircle(c * anchocua + (anchocua / 2),
-                                filaact + (anchocua / 2), 20, bomba);
+                        Drawable d = ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_clear_black_24dp);
+                        d.setBounds(c * anchocua, filaact, c * anchocua
+                                + anchocua - 2, filaact + anchocua - 2);
+                        d.draw(canvas);
                     }
 
                 }
@@ -281,12 +288,43 @@ public class MPMain extends Activity implements OnTouchListener {
         TextView jugadores = (TextView) findViewById(R.id.jugador);
         if (jugador){
             jugador = false;
-            jugadores.setText("jugador 2");
+            jugadores.setText("Jugador 2");
         } else {
             jugador = true;
-            jugadores.setText("jugador 1");
+            jugadores.setText("Jugador 1");
         }
         return jugador;
     }
 
+    public AlertDialog endGame(boolean winpayer1){
+        String title;
+        if(winpayer1){
+            title = "Enhorabuena jugador 1";
+        }else{
+            title = "Enhorabuena jugador 2";
+        }
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setCancelable(false)
+                .setIcon(R.drawable.emoji_mp)
+                .setTitle(title)
+                .setMessage("¿Quereis seguir manteniendo el duelo?")
+                .setNegativeButton("Volver al menú", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(MPMain.this, HomeActivity.class));
+                    }
+                })
+                .setPositiveButton("Revancha", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+                        Intent i = new Intent().setClass(MPMain.this, MPMain.class);
+                        startActivity(i);
+                        finish();
+                    }
+                })
+                .create();
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.argb(180,255,255,255)));
+        return dialog;
+    }
 }

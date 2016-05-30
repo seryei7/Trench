@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@android:color/black"
+    android:background="@drawable/fondo_info"
     android:layout_height="match_parent">
 
     <TextView
@@ -15,7 +15,7 @@
         android:layout_centerHorizontal="true"
         android:textColor="@android:color/white"
         android:layout_marginTop="120dp"
-        android:textSize="30dp"
+        android:textSize="40dp"
         android:textStyle="bold"/>
 
     <TextView
