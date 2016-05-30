@@ -111,12 +111,6 @@ public class LoginActivity extends BaseActivity implements
                 firebaseAuthWithGoogle(account);
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                 startActivity(intent);
-                Toast.makeText(LoginActivity.this, "Registrado con la cuenta de google",
-                        Toast.LENGTH_SHORT).show();
-                finish();
-            }else{
-                Toast.makeText(LoginActivity.this, "Fallo en metodo onActivityResult",
-                        Toast.LENGTH_SHORT).show();
             }
         }
     }

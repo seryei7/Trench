@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "2195338939-6462b5n87fpc7jqdjqh7rbadf0mnr2v9.apps.googleusercontent.com",
+          "client_id": "2195338939-fk2ivm5f3di22p8iappggsq50vus9iqm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.games.dam.trench",
-            "certificate_hash": "DA39A3EE5E6B4B0D3255BFEF95601890AFD80709"
+            "certificate_hash": "9DEEDF2E07E2F1644CD393489FC3665747A57179"
           }
         },
         {
